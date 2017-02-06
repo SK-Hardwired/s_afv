@@ -10,13 +10,13 @@ With this tool you can see:
   - What AF points were used for final focus adjustments (have additional RED frame)
   - What AF point was reported as in Focus (Yellow circle)
   
- For CAF cameras (for example, DSC-RX100M4)
+For CAF cameras (for example, DSC-RX100M4)
   - If Face Detection was on, and Face(s) detected - they are highlighted with green frame
-  - What area was reported as in Focus (Yellow circle)
+  - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   
 This tool consists of 2 scripts:
-  1) afv.py - this is start module providing simple GUI to select JPG file. YOU SHOULD START THIS FILE
-  2) afv_draw.py - drawing module which draws selected file and all visualization using matplotlib module.
+  - afv.py - this is start module providing simple GUI to select JPG file. YOU SHOULD START THIS FILE
+  - afv_draw.py - drawing module which draws selected file and all visualization using matplotlib module.
   
 Prerequisities:
   - Python 3.5.3
