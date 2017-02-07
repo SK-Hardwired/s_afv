@@ -1,7 +1,8 @@
-# sony_afv
+# s_afv
 # Visualizer of AF data from Sony cameras JPEG EXIFs
 
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
+I.e. this tool show where are focus points
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (for example, SLT-A57):
