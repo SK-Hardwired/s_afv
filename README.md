@@ -1,18 +1,23 @@
 # sony_afv
 # Visualizer of AF data from Sony cameras JPEG EXIFs
 
-This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them.
+This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 
 With this tool you can see:
-- For cameras with 15-points PDAF (for example, SLT-A57):
+- For SLT cameras with 15-points PDAF (for example, SLT-A57):
   - AF hit status for each sensor at shutter release. AF hit displayed by colors from black to white. Black = out of focus. White = In Focus
-  - If Face Detection was on, and Face(s) detected - they are highlighted with green frame
+  - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What AF points were used for final focus adjustments (have additional RED frame)
   - What AF point was reported as in Focus (Yellow circle)
   
-For CAF cameras (for example, DSC-RX100M4)
-  - If Face Detection was on, and Face(s) detected - they are highlighted with green frame
+- For CAF cameras (for example, DSC-RX100M4)
+  - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
+  
+- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2)
+  - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
+  - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
+  - What Focal Plane (on-sensor) AF points were used
   
 This tool consists of 2 scripts:
   - afv.py - this is start module providing simple GUI to select JPG file. YOU SHOULD START THIS FILE
