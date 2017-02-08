@@ -1,6 +1,8 @@
 # s_afv
 # Visualizer of AF data from Sony cameras JPEG EXIFs
 
+![alt text](a7rm2_afv.jpeg "AFV tool displaying focus data on photo made with ILCE-7RM2")
+
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 I.e. this tool show where are focus points.
 
