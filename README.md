@@ -25,13 +25,14 @@ With this tool you can see:
   - What Focal Plane (on-sensor) AF points were used
   - Note! For ILCA-99M2 displaying of dedicated PDAF points not implemented yet. Only on-sensor PDAF spots statuses supported.
   
-This tool consists of 2 scripts:
-  - afv.py - this is start module providing simple GUI to select JPG file. YOU SHOULD START THIS FILE
-  - afv_draw.py - drawing module which draws selected file and all visualization using matplotlib module.
+This tool consists of:
+  - afv.py - main script itself doing all drawing.
+  - exiftool (should be downloaded separately (link below) and named as exiftool.exe and placed in the same folder as afv.py
+  *Note: For easy use downloaded compiled already package with exiftool included. Link on top  of page)
   
 Prerequisities for launching source script:
   - Python 3.5.3
   - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/)
-  - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv and afv_draw scripts. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
+  - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv.py script. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
 
 Warning! You will get no results or corrupted results if you JPEG photos (their EXIF) were modified or by image processing software. So please use JPEGs straight from the camera.
