@@ -9,13 +9,13 @@ I.e. this tool show where are focus points.
 **Standalone (no python installed required) Win x64 version  download link (with all libs and dlls) - https://dl.dropboxusercontent.com/u/7216470/afv_bin_win64.zip **
 
 With this tool you can see:
-- For SLT cameras with 15-points PDAF (for example, SLT-A57):
+- For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
   - AF hit status for each sensor at shutter release. AF hit displayed by colors from black to white. Black = out of focus. White = In Focus
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What AF points were used for final focus adjustments (have additional RED frame)
   - What AF point was reported as in Focus (Yellow circle)
   
-- For CAF cameras (for example, DSC-RX100M4)
+- For CAF cameras (for example, DSC-RX100M4, DSC-RX10(Mx) and many other Cybershots)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   
