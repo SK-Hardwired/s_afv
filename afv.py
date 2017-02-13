@@ -103,7 +103,7 @@ class draw (object) :
           ypixels, xpixels, bands = im.shape
 
           # F is the path to your target image file.
-          exifdata = subprocess.check_output(['exiftool.exe',F],shell=True,universal_newlines=True,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
+          exifdata = subprocess.check_output(['exiftool.exe','-a',F],shell=True,universal_newlines=True,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
           exifdata = exifdata.splitlines()
           list(exifdata)
           exif = dict()
@@ -320,6 +320,435 @@ class draw (object) :
                            if afp_used[i] == 'Upper-right' :
                                 ax.add_patch(patches.Rectangle((x_center+3.5*spacer,y_center-1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))          
 
+#ILCA-99M2 AF POINTS
+               if exif.get('AF Type') == '79-point':
+                    if 'AF Points Used' in exif:
+                      afp_used = (exif.get('AF Points Used')).split(', ')
+                      if exif.get ('Camera Model Name') == 'ILCA-99M2' :
+                           r_size = 0.020*xpixels
+                           vspacer = 1.2*r_size
+                           hspacer = 2.2*r_size
+                      if exif.get ('Camera Model Name') == 'ILCA-77M2' :
+                           r_size = 0.020*xpixels*1.5
+                           vspacer = 1.2*r_size
+                           hspacer = 2.2*r_size
+                      
+                      #print (afp_used)
+                      #CENTER
+                      #E6
+                      if 'E6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D6
+                      if 'D6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F6
+                      if 'F6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C6
+                      if 'C6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G6
+                      if 'G6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B6
+                      if 'B6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H6
+                      if 'H6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #A6
+                      if 'A6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #I6
+                      if 'I6' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                   
+
+                      #E5
+                      if 'E5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D5
+                      if 'D5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F5
+                      if 'F5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C5
+                      if 'C5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G5
+                      if 'G5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B5
+                      if 'B5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H5
+                      if 'H5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #A5
+                      if 'A5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #I5
+                      if 'I5' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-hspacer,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+
+                      #E7
+                      if 'E7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D7
+                      if 'D7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F7
+                      if 'F7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C7
+                      if 'C7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G7
+                      if 'G7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B7
+                      if 'B7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H7
+                      if 'H7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #A7
+                      if 'A7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c-4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #I7
+                      if 'I7' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+hspacer,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+#LEFT PART
+                      #E4
+                      if 'E4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D4
+                      if 'D4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F4
+                      if 'F4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C4
+                      if 'C4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G4
+                      if 'G4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B4
+                      if 'B4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H4
+                      if 'H4' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-2.8*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+                      #E3
+                      if 'E3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D3
+                      if 'D3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F3
+                      if 'F3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C3
+                      if 'C3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G3
+                      if 'G3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B3
+                      if 'B3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H3
+                      if 'H3' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-3.7*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+                      #E2
+                      if 'E2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D2
+                      if 'D2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F2
+                      if 'F2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C2
+                      if 'C2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G2
+                      if 'G2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B2
+                      if 'B2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H2
+                      if 'H2' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-4.6*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+
+                      #E1
+                      if 'E1' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D1
+                      if 'D1' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F1
+                      if 'F1' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C1
+                      if 'C1' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G1
+                      if 'G1' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2-5.5*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+#RIGHT PART
+                      #E8
+                      if 'E8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D8
+                      if 'D8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F8
+                      if 'F8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C8
+                      if 'C8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G8
+                      if 'G8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B8
+                      if 'B8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H8
+                      if 'H8' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+2.8*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+                      #E9
+                      if 'E9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D9
+                      if 'D9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F9
+                      if 'F9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C9
+                      if 'C9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G9
+                      if 'G9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B9
+                      if 'B9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H9
+                      if 'H9' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+3.7*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+                      #E10
+                      if 'E10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D10
+                      if 'D10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F10
+                      if 'F10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C10
+                      if 'C10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G10
+                      if 'G10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #B10
+                      if 'B10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c-3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #H10
+                      if 'H10' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+4.6*hspacer,y_c+3*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+
+                      #E11
+                      if 'E11' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #D11
+                      if 'D11' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #F11
+                      if 'F11' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c+vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #C11
+                      if 'C11' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c-2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                      #G11
+                      if 'G11' in afp_used:
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'g',facecolor='none',alpha =0.9))
+                      else :
+                           ax.add_patch(patches.Rectangle((x_c-r_size/2+5.5*hspacer,y_c+2*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+
+
+
+#ILCA-99M2 AF POINTS END
+
           if 'Faces Detected' in exif :
             faces = exif.get('Faces Detected')
             faces = int(faces)
@@ -431,20 +860,19 @@ class draw (object) :
                                    else:
                                         ax.add_patch(patches.Rectangle((i*(xpixels/(22*1.5))+xpixels/6-r_size/4,ypixels/(19*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
 
-                    elif exif.get('Camera Model Name') in ('ILCE-7SM2')  :
+                    elif exif.get('Camera Model Name') in ('ILCE-7M2')  :
                          foc = exif.get ('Focal Plane AF Points Used')
                          foc = [int(s) for s in re.findall(r'\d+',foc)]
                          #print (foc)
                          k=(-1)
-                         for j in range (1,20):
-                              for i in range (1,22) :
+                         for j in range (1,10):
+                              for i in range (1,14) :
                                    k = k+1
                                    #print (k)
                                    if k in foc :
-                                        ax.add_patch(patches.Rectangle((i*(xpixels/(22*1.5))+xpixels/6-r_size/4,ypixels/(19*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'lime',facecolor='none',alpha =0.9))
+                                        ax.add_patch(patches.Rectangle((i*(xpixels/(13*2.35))+xpixels/3.63-r_size/3,ypixels/(9*2.2)*j+ypixels/4.24),r_size/3,r_size/3,linewidth=2,edgecolor = 'lime',facecolor='none',alpha =0.9))
                                    else:
-                                        ax.add_patch(patches.Rectangle((i*(xpixels/(22*1.5))+xpixels/6-r_size/4,ypixels/(19*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
-                              
+                                        ax.add_patch(patches.Rectangle((i*(xpixels/(13*2.35))+xpixels/3.63-r_size/3,ypixels/(9*2.2)*j+ypixels/4.24),r_size/3,r_size/3,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
 
 
 
@@ -472,6 +900,40 @@ class draw (object) :
                else :
                     foc=[]
 
+          """#Test area"
+                              #if exif.get('Camera Model Name') in ('None')  :
+                    #foc = exif.get ('Focal Plane AF Points Used')
+                    #foc = [int(s) for s in re.findall(r'\d+',foc)]
+                    #print (foc)
+                    k=(-1)
+                    for j in range (1,10):
+                         for i in range (1,14) :
+                              k = k+1
+                              #print (k)
+                    #          if k in foc :
+                    #               ax.add_patch(patches.Rectangle((i*(xpixels/(13*1.5))+xpixels/6-r_size/4,ypixels/(9*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'lime',facecolor='none',alpha =0.9))
+                     #         else:
+                              ax.add_patch(patches.Rectangle((i*(xpixels/(13*2.35))+xpixels/3.63-r_size/3,ypixels/(9*2.2)*j+ypixels/4.24),r_size/3,r_size/3,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))
+
+
+                              
+                              elif exif.get('Camera Model Name') in ('ILCE-7SM2')  :
+                                   foc = exif.get ('Focal Plane AF Points Used')
+                                   foc = [int(s) for s in re.findall(r'\d+',foc)]
+                                   #print (foc)
+                                   k=(-1)
+                                   for j in range (1,20):
+                                        for i in range (1,22) :
+                                             k = k+1
+                                             #print (k)
+                                             if k in foc :
+                                                  ax.add_patch(patches.Rectangle((i*(xpixels/(22*1.5))+xpixels/6-r_size/4,ypixels/(19*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'lime',facecolor='none',alpha =0.9))
+                                             else:
+                                                  ax.add_patch(patches.Rectangle((i*(xpixels/(22*1.5))+xpixels/6-r_size/4,ypixels/(19*1.5)*j+ypixels/7),r_size/4,r_size/4,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
+                                        
+          Test Area
+          """
+
 
           if 'Focus Location' in exif:
             focusp = exif.get('Focus Location')
@@ -485,7 +947,7 @@ class draw (object) :
                txt = ax.text(0,0,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'15-point focus model detected ('+str(exif.get('Camera Model Name'))+')!\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
                txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
           elif (exif.get ('Focal Plane AF Points Used')) :
-               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2',) :
+               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2') :
                     txt = ax.text(0,0,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+')!\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
                if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2') :
@@ -495,10 +957,13 @@ class draw (object) :
                     txt = ax.text(0,0,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+str(exif.get('Camera Model Name')), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
-
+          #Debug
+#          plt.plot([0, xpixels], [0, ypixels], color='r', linestyle='-', linewidth=2)
+#          plt.plot([0,xpixels], [ypixels,0], color='r', linestyle='-', linewidth=2)
+          #Debug
+                    
           ax.imshow(im)
-
-          
+        
           plt.draw()
 #wm = plt.get_current_fig_manager()
 #wm.window.state('zoomed')
