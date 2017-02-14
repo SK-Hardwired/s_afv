@@ -6,7 +6,7 @@
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 I.e. this tool show where are focus points.
 
-**Standalone (no python installed required) Win x64 version  download link (with all libs and dlls) - https://dl.dropboxusercontent.com/u/7216470/afv_bin_win64.zip **
+**Most recent standalone (no python installed required) Win x32 version  download link (with all libs and dlls) - https://dl.dropboxusercontent.com/u/7216470/afv_bin_win32_20170214.zip **
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
@@ -19,7 +19,7 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   
-- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2)
+- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
