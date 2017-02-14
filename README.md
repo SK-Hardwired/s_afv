@@ -23,7 +23,6 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
-  - Note! For ILCA-99M2 displaying of dedicated PDAF points not implemented yet. Only on-sensor PDAF spots statuses supported.
   
 This tool consists of:
   - afv.py - main script itself doing all drawing.
