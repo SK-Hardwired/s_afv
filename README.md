@@ -6,7 +6,11 @@
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs fron Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 I.e. this tool show where are focus points.
 
-**Most recent standalone (no python installed required) Win x32 version  download link (with all libs and dlls) - https://dl.dropboxusercontent.com/u/7216470/afv_bin_win32_20170214.zip **
+**Most recent standalone (no python installed required) Win x32 version download link (no exiftool.exe included)**
+**https://dl.dropboxusercontent.com/u/7216470/afv_bundle_win_x86_20170216.zip**
+
+**EXPERIMENTAL! Single-file standalone version (no exiftool.exe included)**
+**https://dl.dropboxusercontent.com/u/7216470/afv_single_file_win_x86_20170216.zip**
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
@@ -23,10 +27,11 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
+  - **New! Dedicated PDAF sensors statuses display**
   
 This tool consists of:
   - afv.py - main script itself doing all drawing.
-  - exiftool (should be downloaded separately (link below) and named as exiftool.exe and placed in the same folder as afv.py
+  - exiftool (should be downloaded separately (link below) and named as **exiftool.exe** and placed in the same folder as afv.py
   *Note: For easy use downloaded compiled already package with exiftool included. Link on top  of page)
   
 Prerequisities for launching source script:
