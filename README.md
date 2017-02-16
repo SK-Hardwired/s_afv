@@ -36,7 +36,8 @@ With this tool you can see:
   - **New! [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display**
   
 **New! RAW reading support added (via rawpy)**
-**New! You can save now full resolution image with markers using "Save" button. All EXIF data copied from source file to new.
+
+**New! You can save now full resolution image with markers using "Save" button. All EXIF data copied from source file to new image.**
 
   
 This tool consists of:
