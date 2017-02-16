@@ -19,6 +19,10 @@ With this tool you can see:
   - What AF points were used for final focus adjustments (have additional RED frame)
   - What AF point was reported as in Focus (Yellow circle)
   
+- For SLT cameras with 19-points PDAF (SLT-A77, SLT-A99):
+  - AF hit status for each sensor at shutter release. AF hit displayed by colors from black to white. Black = out of focus. White = In Focus
+  - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
+  
 - For CAF cameras (for example, DSC-RX100M4, DSC-RX10(Mx) and many other Cybershots)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
@@ -27,7 +31,7 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
-  - **New! Dedicated PDAF sensors statuses display**
+  - **New! [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display**
   
 This tool consists of:
   - afv.py - main script itself doing all drawing.
