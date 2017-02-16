@@ -32,10 +32,11 @@ With this tool you can see:
 This tool consists of:
   - afv.py - main script itself doing all drawing.
   - exiftool (should be downloaded separately (link below) and named as **exiftool.exe** and placed in the same folder as afv.py
-  *Note: For easy use downloaded compiled already package with exiftool included. Link on top  of page)
+  
+  *Note: For easy use downloaded compiled already package with exiftool included. Link on top  of page)*
   
 Prerequisities for launching source script:
-  - Python 3.5.3
+  - Python 3.4.x+
   - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/)
   - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv.py script. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
 
