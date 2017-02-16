@@ -18,6 +18,7 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What AF points were used for final focus adjustments (have additional RED frame)
   - What AF point was reported as in Focus (Yellow circle)
+![alt text](pics/afv_a57_2.JPG "AF points statuses on SLT-A57 photo")
   
 - For SLT cameras with 19-points PDAF (SLT-A77, SLT-A99):
   - AF hit status for each sensor at shutter release. AF hit displayed by colors from black to white. Black = out of focus. White = In Focus
