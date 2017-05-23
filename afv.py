@@ -1,14 +1,14 @@
 import os
-import sys
+#import sys
 import re
-import json
+#import json
 import subprocess
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.patheffects as path_effects
 from matplotlib.widgets import Button
-import tkinter as tk
-from tkinter import filedialog
+import Tkinter as tk
+import tkFileDialog
 from PIL import Image
 import numpy as np
 import rawpy
@@ -22,17 +22,9 @@ def norm(val):
      ret = 1-ret    
      ret = str(ret)
      return ret
-     
 
 #F = sys.argv[1]
 
-# Create figure and axes
-fig = plt.figure()
-ax = plt.subplot()
-fig.canvas.set_window_title('AF Visualizer')
-fig.subplots_adjust(left=0.02, bottom=0.08, right=0.98, top=0.98)
-ax.axis('off')
-ax.text (0.5,0.5,'Open file with OPEN... button', color='gray', weight='bold', fontsize='x-large', ha='center', va='center')
 
 
 
@@ -40,12 +32,24 @@ ax.text (0.5,0.5,'Open file with OPEN... button', color='gray', weight='bold', f
 
 class draw (object) :
 
+     #root = tk.Tk()
+     #root.withdraw()
+     
+     
+
+     def handle_close(evt):
+          fig.close()
+
      def ofile (self, event):
           global flist,F,pos,oldf
           flist = []
           if 'F' in globals ():
                oldf = F
-          F = filedialog.askopenfilename(filetypes=[('JPG or RAW from Sony Camera', ('*.jpg','*.arw'))])
+               
+          #root = tk.Tk()
+          #root.withdraw()
+               
+          F = tkFileDialog.askopenfilename(filetypes=[('JPG or RAW from Sony Camera', ('*.jpg','*.arw'))])
           #os.chdir(os.path.dirname(F))
           if not F :
                if 'oldf' not in globals():
@@ -71,7 +75,7 @@ class draw (object) :
 
      def save (self,event):
           global xpixels,ypixels
-          sname = filedialog.asksaveasfilename(filetypes=[('JPEG', '*.jpg')],defaultextension='.jpg')
+          sname = tkFileDialog.asksaveasfilename(filetypes=[('JPEG', '*.jpg')],defaultextension='.jpg')
           if not sname:
                return
           extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
@@ -113,8 +117,10 @@ class draw (object) :
 #          if not F :
 #               return
           if '.arw' in F.lower():
-               raw = rawpy.imread(F)
+               rw = open(F,'rb')
+               raw = rawpy.imread(rw)
                im = raw.postprocess(use_camera_wb=True,user_flip=0)
+               rw.close()
           if '.jpg' in F.lower():
                f = Image.open(F)
                im = np.array(f, dtype=np.uint8)
@@ -1199,17 +1205,33 @@ class draw (object) :
 
 
 
-                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2') :
+                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9') :
                          foc = exif.get ('Focal Plane AF Points Used')
                          if int(foc) :
 
                               r_size = exif.get('Focal Plane AF Point Area')
                               r_size = list(r_size.split())
+                                                            
+
+                              #print (r_size)
                               for i in range (1,int(foc)+1) :
                                    afloc = exif.get ('Focal Plane AF Point Location '+str(i))
                                    afloc = list(afloc.split())
                                    #print (afloc)
-                                   afspot = patches.Rectangle((xpixels*int(afloc[0])/int(r_size[0])-int(r_size[0])/2,ypixels*int(afloc[1])/int(r_size[1])-int(r_size[1])/2),int(r_size[0]),int(r_size[1]),linewidth=1,edgecolor='lime',facecolor='none')
+                                   """
+                                   afspot = patches.Rectangle((xpixels*int(afloc[0])/int(r_size[0])-int(r_size[0])/2,
+                                                               ypixels*int(afloc[1])/int(r_size[1])-int(r_size[1])/2),
+                                                              int(r_size[0]),
+                                                              int(r_size[1]),
+                                                              linewidth=1,edgecolor='lime',facecolor='none')
+                                   """
+
+                                   afspot = patches.Rectangle((xpixels*int(afloc[0])/int(r_size[0])-xpixels*0.039/2/2,
+                                                               ypixels*int(afloc[1])/int(r_size[1])-xpixels*0.039/2/2),
+                                                              xpixels*0.039/2,
+                                                              xpixels*0.039/2,
+                                                              linewidth=1,edgecolor='lime',facecolor='none')
+
                                    ax.add_patch(afspot)
 
 
@@ -1267,21 +1289,29 @@ class draw (object) :
 
           
           if exif.get('AF Type') == '15-point':
-               txt = ax.text(0.01*xpixels,0.01*ypixels,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'15-point focus model detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
+               txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'15-point focus model detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
                txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
           elif exif.get('AF Type') == '19-point':
-               txt = ax.text(0.01*xpixels,0.01*ypixels,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'19-point focus model detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
+               txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'19-point focus model detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
                txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
           elif (exif.get ('Focal Plane AF Points Used')) :
-               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2') :
-                    txt = ax.text(0.01*xpixels,0.01*ypixels,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
+               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2','ILCE-9') :
+                    txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2') :
-                    txt = ax.text(0.01*xpixels,0.01*ypixels,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc), color='y', weight='bold', fontsize='small', ha='left', va='top')
+               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9') :
+                    txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
           else :
-                    txt = ax.text(0.01*xpixels,0.01*ypixels,os.path.basename(F)+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+str(exif.get('Camera Model Name')), color='y', weight='bold', fontsize='small', ha='left', va='top')
+                    if not exif.get('Camera Model Name'):
+                         ex_cam_mod_name = 'None'
+                    else:
+                         ex_cam_mod_name = exif.get('Camera Model Name')
+                    if not exif.get('Focus Mode'):
+                         ex_foc_mode = 'None'
+                    else:
+                         ex_foc_mode = exif.get('Focus Mode')
+                    txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+str(ex_cam_mod_name)+'. Focus Mode: '+str(ex_foc_mode), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
           #Debug
@@ -1291,9 +1321,24 @@ class draw (object) :
                     
           ax.imshow(im)
           plt.draw()
+          
+
+
 #wm = plt.get_current_fig_manager()
 #wm.window.state('zoomed')
+
+# Create figure and axes
 callback = draw()
+fig = plt.figure()
+
+ax = plt.subplot()
+fig.canvas.set_window_title('AF Visualizer')
+fig.subplots_adjust(left=0.02, bottom=0.08, right=0.98, top=0.98)
+ax.axis('off')
+ax.text (0.5,0.5,'Open file with OPEN... button', color='gray', weight='bold', fontsize='x-large', ha='center', va='center')
+
+
+
 obutton = plt.axes([0.01, 0.01, 0.1, 0.05])
 pbutton = plt.axes([0.12, 0.01, 0.1, 0.05])
 nbutton = plt.axes([0.23, 0.01, 0.1, 0.05])
@@ -1301,6 +1346,8 @@ sbutton = plt.axes([0.34, 0.01, 0.1, 0.05])
 
 fopen = Button(obutton, 'Open...')
 fopen.on_clicked(callback.ofile)
+
+
 
 prevp = Button(pbutton, 'Previous')
 prevp.on_clicked(callback.prevf)
@@ -1312,5 +1359,13 @@ save = Button(sbutton, 'Save')
 save.on_clicked(callback.save)
 
 wm = plt.get_current_fig_manager()
-wm.window.state('zoomed')
+#wm.window.state('zoomed')
+fig.canvas.mpl_connect('close_event', callback.handle_close)
+
+
 plt.show()
+
+
+
+
+
