@@ -7,10 +7,7 @@ This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXI
 I.e. this tool show where are focus points.
 
 **Most recent standalone (no python installed required) Win x32 version download link (no exiftool.exe included)**
-**https://dl.dropboxusercontent.com/u/7216470/afv_bundle_win_x86_20170217.zip**
-
-**EXPERIMENTAL! Single-file standalone version (no exiftool.exe included)**
-**https://dl.dropboxusercontent.com/u/7216470/afv_singlefile_win_x86_20170217.zip**
+https://drive.google.com/open?id=0B2DWwxDJ3bHkMnlnQnZHdUdSbTA
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
@@ -29,11 +26,12 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   
-- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2)
+- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2, **ILCE-9**)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
   - **New! [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display**
+  - **New! [ILCE-9] JPEG support added**
   
 **New! RAW reading support added (via rawpy)**
 
@@ -47,7 +45,7 @@ This tool consists of:
   *Note: For easy use downloaded compiled already package)*
   
 Prerequisities for launching source script:
-  - Python 3.4.x+
+  - Python 2.7
   - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/)
   - rawpy (pip install rawpy) to show ARW
   - pillow (pip install pillow) to load and show JPG
