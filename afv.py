@@ -110,14 +110,14 @@ class draw (object) :
      def zoom (self,event):
           global xpixels,ypixels,z_status
           if z_status == 0:
-               x_center = xpixels/2
-               y_center = ypixels/2
+               x_c = xpixels/2
+               y_c = ypixels/2
                bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
                width, height = bbox.width, bbox.height
 
                width *= fig.dpi
                height *= fig.dpi
-               plt.axis([x_center-width/2,x_center+width/2,y_center+height/2,y_center-height/2])
+               plt.axis([x_c-width/2,x_c+width/2,y_c+height/2,y_c-height/2])
                fig.canvas.draw()
                z_status = 1
           else :
@@ -162,7 +162,15 @@ class draw (object) :
             tag,val = each.split(':',1) # '1' only allows one split
             exif[tag.strip()] = val.strip()
 
-
+#### IF RAW opened, crop image to proper aspect ratio and resolution according to EXIF
+          if int(exif.get('Exif Image Height')) < ypixels or (exif.get('Exif Image Width')) < xpixels :
+               #debug print ("Crop needed! EXIF Height = ",int(exif.get('Sony Image Height')),", ypixels = ",ypixels)
+               xdiff =  int(exif.get('Sony Image Width'))
+               ydiff =  int(exif.get('Sony Image Height'))
+               startx = xpixels//2-(xdiff//2)
+               starty = ypixels//2-(ydiff//2)    
+               im =im[starty:starty+ydiff,startx:startx+xdiff]
+               ypixels, xpixels, bands = im.shape
 
           r_size = 0.039*xpixels
 
@@ -173,6 +181,10 @@ class draw (object) :
           y_c = ypixels/2
           spacer = 0.047*xpixels
           rad = 0.03*xpixels
+
+
+               
+
 
           #for key in sorted(exif.items()) :
           #     print(key) 
@@ -1389,6 +1401,5 @@ zoom.on_clicked(callback.zoom)
 #wm = plt.get_current_fig_manager()
 #wm.window.state('zoomed')
 fig.canvas.mpl_connect('close_event', callback.handle_close)
-
 
 plt.show()
