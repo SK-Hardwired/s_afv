@@ -1,16 +1,18 @@
 # s_afv
 # Visualizer of AF data from Sony cameras JPEG and ARW (RAW) EXIFs
 
+# ATTENTION! Due to dependencies of Python 3.6 of some MSVC libraries and compatibility problems of built EXE's in different Windows versions, code reworked to Python 2.7. Please see the most recent versions at branch - https://github.com/SK-Hardwired/s_afv/tree/s-afv-python-27
+
 ![alt text](a7rm2_afv.jpeg "AFV tool displaying focus data on photo made with ILCE-7RM2")
 
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs and **RAW (ARW)** from Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 I.e. this tool show where are focus points.
 
 **Most recent standalone (no python installed required) Win x32 version download link (no exiftool.exe included)**
-**https://dl.dropboxusercontent.com/u/7216470/afv_bundle_win_x86_20170217.zip**
+**https://drive.google.com/open?id=0B2DWwxDJ3bHkUjlrX3NzMlJ1ZjQ**
 
 **EXPERIMENTAL! Single-file standalone version (no exiftool.exe included)**
-**https://dl.dropboxusercontent.com/u/7216470/afv_singlefile_win_x86_20170217.zip**
+**https://drive.google.com/open?id=0B2DWwxDJ3bHkalhtVVl1LU5RQVk**
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
