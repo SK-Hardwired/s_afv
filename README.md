@@ -6,8 +6,11 @@
 This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXIF metadata of JPEGs and **RAW (ARW)** from Sony cameras. Auto focus statuses are parsed from EXIF and presented as ExifTool interprets them. 
 I.e. this tool show where are focus points.
 
-**Most recent standalone (no python installed required) Win x32 version download link (no exiftool.exe included)**
-https://drive.google.com/open?id=0B2DWwxDJ3bHkMnlnQnZHdUdSbTA
+**Most recent standalone single file (extracts all libs and runtime to temp folder, no python installed required) Win x32 version download link (no exiftool.exe included)**
+https://drive.google.com/open?id=0B2DWwxDJ3bHkai1fbjdrbDdEUDg
+
+**Most recent bundle (all libs and runtimes, no python installed required) Win x32 version download link (no exiftool.exe included)**
+https://drive.google.com/open?id=0B2DWwxDJ3bHkVGladlFpRTM2aVE
 
 With this tool you can see:
 - For SLT cameras with 15-points PDAF (SLT-A33, SLT-A55, SLT-A35, SLT-A65, SLT-A57, SLT-A58):
@@ -32,10 +35,9 @@ With this tool you can see:
   - What Focal Plane (on-sensor) AF points were used
   - **New! [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display**
   - **New! [ILCE-9] JPEG support added**
+  - **New! [ILCE-9] RAW also supported (via rawpy module, tested on Windows)**
   
-**New! RAW reading support added (via rawpy)**
-
-**New! You can save now full resolution image with markers using "Save" button. All EXIF data copied from source file to new image.**
+**New! Quick 1:1 zoom / Fit toggle button added**
 
   
 This tool consists of:
