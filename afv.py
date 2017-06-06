@@ -107,8 +107,30 @@ class draw (object) :
           else:
                return
 
+     def zoom (self,event):
+          global xpixels,ypixels,z_status
+          if z_status == 0:
+               x_center = xpixels/2
+               y_center = ypixels/2
+               bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+               width, height = bbox.width, bbox.height
+
+               width *= fig.dpi
+               height *= fig.dpi
+               plt.axis([x_center-width/2,x_center+width/2,y_center+height/2,y_center-height/2])
+               fig.canvas.draw()
+               z_status = 1
+          else :
+               plt.axis([0,xpixels,ypixels,0])
+               fig.canvas.draw()
+               z_status = 0
+          
+          
+
+
      def start (self,F) :
-          global xpixels,ypixels
+          global xpixels,ypixels, z_status
+          z_status = 0
           plt.sca(ax)
           plt.cla()
           ax.axis('off')
@@ -1318,20 +1340,24 @@ class draw (object) :
 #          plt.plot([0, xpixels], [0, ypixels], color='r', linestyle='-', linewidth=2)
 #          plt.plot([0,xpixels], [ypixels,0], color='r', linestyle='-', linewidth=2)
           #Debug
-                    
+
           ax.imshow(im)
+
           plt.draw()
           
 
 
-#wm = plt.get_current_fig_manager()
-#wm.window.state('zoomed')
+
 
 # Create figure and axes
 callback = draw()
 fig = plt.figure()
 
 ax = plt.subplot()
+
+#wm = plt.get_current_fig_manager()
+#wm.window.state('zoomed')
+
 fig.canvas.set_window_title('AF Visualizer')
 fig.subplots_adjust(left=0.02, bottom=0.08, right=0.98, top=0.98)
 ax.axis('off')
@@ -1343,11 +1369,10 @@ obutton = plt.axes([0.01, 0.01, 0.1, 0.05])
 pbutton = plt.axes([0.12, 0.01, 0.1, 0.05])
 nbutton = plt.axes([0.23, 0.01, 0.1, 0.05])
 sbutton = plt.axes([0.34, 0.01, 0.1, 0.05])
+zbutton = plt.axes([0.45, 0.01, 0.1, 0.05])
 
 fopen = Button(obutton, 'Open...')
 fopen.on_clicked(callback.ofile)
-
-
 
 prevp = Button(pbutton, 'Previous')
 prevp.on_clicked(callback.prevf)
@@ -1358,14 +1383,12 @@ nextp.on_clicked(callback.nextf)
 save = Button(sbutton, 'Save')
 save.on_clicked(callback.save)
 
-wm = plt.get_current_fig_manager()
+zoom = Button(zbutton, '1:1/Fit')
+zoom.on_clicked(callback.zoom)
+
+#wm = plt.get_current_fig_manager()
 #wm.window.state('zoomed')
 fig.canvas.mpl_connect('close_event', callback.handle_close)
 
 
 plt.show()
-
-
-
-
-
