@@ -11,8 +11,7 @@ import Tkinter as tk
 import tkFileDialog
 from PIL import Image
 import numpy as np
-import rawpy
-
+import rawpy 
 
 def norm(val):
      ret = float(val)
@@ -143,6 +142,7 @@ class draw (object) :
                raw = rawpy.imread(rw)
                im = raw.postprocess(use_camera_wb=True,user_flip=0)
                rw.close()
+               
           if '.jpg' in F.lower():
                f = Image.open(F)
                im = np.array(f, dtype=np.uint8)
@@ -162,25 +162,27 @@ class draw (object) :
             tag,val = each.split(':',1) # '1' only allows one split
             exif[tag.strip()] = val.strip()
 
-#### IF RAW opened, crop image to proper aspect ratio and resolution according to EXIF
-          if int(exif.get('Exif Image Height')) < ypixels or (exif.get('Exif Image Width')) < xpixels :
-               #debug print ("Crop needed! EXIF Height = ",int(exif.get('Sony Image Height')),", ypixels = ",ypixels)
-               xdiff =  int(exif.get('Sony Image Width'))
-               ydiff =  int(exif.get('Sony Image Height'))
-               startx = xpixels//2-(xdiff//2)
-               starty = ypixels//2-(ydiff//2)    
-               im =im[starty:starty+ydiff,startx:startx+xdiff]
-               ypixels, xpixels, bands = im.shape
+#### IF RAW opened, crop image to proper aspect ratio and resolution according to EXIF (i.e. quick fix of Distortion correction data)
+          if exif.get('Full Image Size'):
+               fimsize = re.findall('\d+', exif.get('Full Image Size'))
+               if int(fimsize[1]) < ypixels or int(fimsize[0]) < xpixels :
+                    #debug print ("Crop needed! EXIF Height = ",int(exif.get('Sony Image Height')),", ypixels = ",ypixels)
+                    xdiff =  int(fimsize[0])
+                    ydiff =  int(fimsize[1])
+                    startx = xpixels//2-(xdiff//2)
+                    starty = ypixels//2-(ydiff//2)    
+                    im =im[starty:starty+ydiff,startx:startx+xdiff]
+                    ypixels, xpixels, bands = im.shape
 
-          r_size = 0.039*xpixels
+               r_size = 0.039*xpixels
 
-          x_center = xpixels/2-r_size/2
-          y_center = ypixels/2-r_size/2
+               x_center = xpixels/2-r_size/2
+               y_center = ypixels/2-r_size/2
 
-          x_c = xpixels/2
-          y_c = ypixels/2
-          spacer = 0.047*xpixels
-          rad = 0.03*xpixels
+               x_c = xpixels/2
+               y_c = ypixels/2
+               spacer = 0.047*xpixels
+               rad = 0.03*xpixels
 
 
                
@@ -1239,7 +1241,7 @@ class draw (object) :
 
 
 
-                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9') :
+                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5') :
                          foc = exif.get ('Focal Plane AF Points Used')
                          if int(foc) :
 
@@ -1317,7 +1319,7 @@ class draw (object) :
           if 'Focus Location' in exif:
             focusp = exif.get('Focus Location')
             focusp = list(focusp.split())
-            focuspoint = patches.Circle((focusp[2],focusp[3]),radius=0.02*xpixels,linewidth=1,edgecolor='y',facecolor='none')
+            focuspoint = patches.Circle((focusp[2],focusp[3]),radius=0.01*xpixels,linewidth=1,edgecolor='y',facecolor='none')
             ax.add_patch(focuspoint)
           #print (foc)
 
@@ -1333,7 +1335,7 @@ class draw (object) :
                if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2','ILCE-9') :
                     txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9') :
+               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5') :
                     txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc), color='y', weight='bold', fontsize='small', ha='left', va='top')
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
           else :
@@ -1401,5 +1403,6 @@ zoom.on_clicked(callback.zoom)
 #wm = plt.get_current_fig_manager()
 #wm.window.state('zoomed')
 fig.canvas.mpl_connect('close_event', callback.handle_close)
+
 
 plt.show()
