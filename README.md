@@ -1,4 +1,3 @@
-# s_afv
 # Visualizer of AF data from Sony cameras JPEG and ARW (RAW) EXIFs
 
 ![alt text](a7rm2_afv.jpeg "AFV tool displaying focus data on photo made with ILCE-7RM2")
@@ -33,11 +32,10 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
-  - **New! [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display**
-  - **New! [ILCE-9] JPEG support added**
-  - **New! [ILCE-9] RAW also supported (via rawpy module, tested on Windows)**
-  
-**New! Quick 1:1 zoom / Fit toggle button added**
+  - [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display
+  - New! [ILCE-9] JPEG support added
+  - New! [ILCE-9] RAW also supported (via rawpy module, tested on Windows)
+  **- New! [ILCE-7RM3] support added (RAW/JPEG)**
 
   
 This tool consists of:
@@ -48,7 +46,7 @@ This tool consists of:
   
 Prerequisities for launching source script:
   - Python 2.7
-  - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/)
+  - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/). Warning
   - rawpy (pip install rawpy) to show ARW
   - pillow (pip install pillow) to load and show JPG
   - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv.py script. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
