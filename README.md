@@ -24,19 +24,17 @@ With this tool you can see:
   - AF hit status for each sensor at shutter release. AF hit displayed by colors from black to white. Black = out of focus. White = In Focus
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   
-- For CAF cameras (for example, DSC-RX100M4, DSC-RX10(Mx) and many other Cybershots)
+- For CAF cameras (for example, DSC-RX100M4, DSC-RX10M3 and many other older Cybershots)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   
-- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2, **ILCE-9**)
+- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2, ILCE-9, ILCE-7RM3, ILCE-7M3, DSC-RX100M6, DSC-RX10M4)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
   - [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display
-  - New! [ILCE-9] JPEG support added
-  - New! [ILCE-9] RAW also supported (via rawpy module, tested on Windows)
-  **- New! [ILCE-7RM3] support added (RAW/JPEG)**
-
+ 
+**Reads both JPEG/ARW**
   
 This tool consists of:
   - afv.py - main script itself doing all drawing.
