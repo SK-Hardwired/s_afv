@@ -44,7 +44,7 @@ This tool consists of:
   
 Prerequisities for launching source script:
   - Python 2.7
-  - matplotlib module installed (pip install matplotlib) (http://matplotlib.org/). Warning
+  - matplotlib module installed (pip install matplotlib==2.0.2) (http://matplotlib.org/). **Warning! Matplotlib ver > 2.0.2 will not work and cause error due to changes in syntax.
   - rawpy (pip install rawpy) to show ARW
   - pillow (pip install pillow) to load and show JPG
   - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv.py script. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
