@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.patheffects as path_effects
 from matplotlib.widgets import Button
-import Tkinter as tk
-import tkFileDialog
+import tkinter as tk
+import tkinter.filedialog as tkFileDialog
 from PIL import Image
 import numpy as np
 import rawpy
@@ -17,7 +17,7 @@ def norm(val):
      ret = ret/1000
      if ret > 1 :
           ret = 1
-     ret = 1-ret    
+     ret = 1-ret
      ret = str(ret)
      return ret
 
@@ -31,7 +31,7 @@ class draw (object) :
           flist = []
           if 'F' in globals ():
                oldf = F
-               
+
           F = tkFileDialog.askopenfilename(filetypes=[('JPG or RAW from Sony Camera', ('*.jpg','*.arw'))])
           if not F :
                if 'oldf' not in globals():
@@ -43,7 +43,7 @@ class draw (object) :
                flist.sort()
                pos = flist.index(F)
 
-               
+
                return
           for file in os.listdir(os.path.dirname(F)):
                if file.endswith((".jpg",".JPG",'.arw','.ARW')):
@@ -105,8 +105,8 @@ class draw (object) :
                plt.axis([0,xpixels,ypixels,0])
                fig.canvas.draw()
                z_status = 0
-          
-          
+
+
 
 
      def start (self,F) :
@@ -122,7 +122,7 @@ class draw (object) :
                raw = rawpy.imread(rw)
                im = raw.postprocess(use_camera_wb=True,user_flip=0)
                rw.close()
-               
+
           if '.jpg' in F.lower():
                f = Image.open(F)
                im = np.array(f, dtype=np.uint8)
@@ -150,7 +150,7 @@ class draw (object) :
                     xdiff =  int(fimsize[0])
                     ydiff =  int(fimsize[1])
                     startx = xpixels//2-(xdiff//2)
-                    starty = ypixels//2-(ydiff//2)    
+                    starty = ypixels//2-(ydiff//2)
                     im =im[starty:starty+ydiff,startx:startx+xdiff]
                     ypixels, xpixels, bands = im.shape
 
@@ -163,7 +163,7 @@ class draw (object) :
                y_c = ypixels/2
                spacer = 0.047*xpixels
                rad = 0.03*xpixels
-          
+
 #15-point AF
           if 'AF Type' in exif :
                if exif.get('AF Type') in ('15-point'):
@@ -184,7 +184,7 @@ class draw (object) :
                                 ax.add_patch(patches.Rectangle((x_center,y_center),r_size,r_size,linewidth=1,edgecolor='limegreen',facecolor=norm(cross),alpha =0.9))
                                 txt = ax.text(x_center, y_center,cross, color='w', weight='bold', fontsize='small', ha='center', va='center')
                                 txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-                                
+
 
                            if key[0] == 'AF Status Bottom Horizontal' :
                                 cross_h = int(vl[0])
@@ -278,48 +278,48 @@ class draw (object) :
                     if 'AF Point In Focus' in exif:
                       afif = exif.get('AF Point In Focus')
                       if afif == 'Center (vertical)' :
-                           ax.add_patch(patches.Circle((x_c,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Center (horizontal)' :
-                           ax.add_patch(patches.Circle((x_c,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Bottom (vertical)' :
-                           ax.add_patch(patches.Circle((x_c,y_c+2*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c+2*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Bottom (horizontal)' :
-                           ax.add_patch(patches.Circle((x_c,y_c+2*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c+2*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Top (vertical)' :
-                           ax.add_patch(patches.Circle((x_c,y_c-2*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c-2*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Top (horizontal)' :
-                           ax.add_patch(patches.Circle((x_c,y_c-2*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c-2*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Near Left' :
-                           ax.add_patch(patches.Circle((x_c-spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c-spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Near Right' :
-                           ax.add_patch(patches.Circle((x_c+spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c+spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Left' :
-                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Right' :
-                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Lower-middle' :
-                           ax.add_patch(patches.Circle((x_c,y_c+spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c+spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Upper-middle' :
-                           ax.add_patch(patches.Circle((x_c,y_c-spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c,y_c-spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Lower-left' :
-                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c+1.6*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c+1.6*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Lower-right' :
-                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c+1.6*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
+                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c+1.6*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Upper-left' :
-                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c-1.6*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))          
+                           ax.add_patch(patches.Circle((x_c-3.5*spacer,y_c-1.6*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Upper-right' :
-                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c-1.6*spacer),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))          
+                           ax.add_patch(patches.Circle((x_c+3.5*spacer,y_c-1.6*spacer),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Far Left' :
-                           ax.add_patch(patches.Circle((x_c-5*spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))          
+                           ax.add_patch(patches.Circle((x_c-5*spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
                       if afif == 'Far Right' :
-                           ax.add_patch(patches.Circle((x_c+5*spacer,y_c),rad,linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))          
+                           ax.add_patch(patches.Circle((x_c+5*spacer,y_c),rad,  linewidth=2,edgecolor = 'y',facecolor='none',alpha =0.9))
 
 
 
                     if 'AF Points Used' in exif:
                       afp_used = (exif.get('AF Points Used')).split(', ')
                       for i in range (0, len(afp_used)) :
-                           
+
                            if afp_used[i] == 'Center' :
                                 ax.add_patch(patches.Rectangle((x_center,y_center),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))
                            if afp_used[i] == 'Bottom' :
@@ -347,9 +347,9 @@ class draw (object) :
                            if afp_used[i] == 'Lower-right' :
                                 ax.add_patch(patches.Rectangle((x_center+3.5*spacer,y_center+1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))
                            if afp_used[i] == 'Upper-left' :
-                                ax.add_patch(patches.Rectangle((x_center-3.5*spacer,y_center-1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))          
+                                ax.add_patch(patches.Rectangle((x_center-3.5*spacer,y_center-1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))
                            if afp_used[i] == 'Upper-right' :
-                                ax.add_patch(patches.Rectangle((x_center+3.5*spacer,y_center-1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))          
+                                ax.add_patch(patches.Rectangle((x_center+3.5*spacer,y_center-1.6*spacer),r_size,r_size,linewidth=2,edgecolor = 'r',facecolor='none',alpha =0.9))
 #19-point AF part
                if exif.get('AF Type') in ('19-point'):
                     if exif.get ('Camera Model Name') in ('SLT-A99','SLT-A99V'):
@@ -373,7 +373,7 @@ class draw (object) :
                                 ax.add_patch(patches.Rectangle((x_center,y_center),r_size,r_size,linewidth=1,edgecolor='limegreen',facecolor=norm(cross),alpha =0.9))
                                 txt = ax.text(x_center, y_center,cross, color='w', weight='bold', fontsize='small', ha='center', va='center')
                                 txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-                                
+
 
                            if key[0] == 'AF Status Bottom Horizontal' :
                                 cross_h = int(vl[0])
@@ -566,7 +566,7 @@ class draw (object) :
                            r_size = 0.020*xpixels*1.5
                            vspacer = 1.2*r_size
                            hspacer = 2.2*r_size
-                      
+
 #CENTER
                       #E6
                       if 'E6' in afp_used:
@@ -613,7 +613,7 @@ class draw (object) :
                            ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'limegreen',facecolor='none',alpha =0.9))
                       else :
                            ax.add_patch(patches.Rectangle((x_c-r_size/2,y_c+4*vspacer-r_size/2),r_size,r_size,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
-                   
+
 
                       #E5
                       if 'E5' in afp_used:
@@ -988,64 +988,72 @@ class draw (object) :
                  if 'Face 1 Position' in exif:
                       face_coord = exif.get('Face 1 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 1', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 2 Position' in exif:
                       face_coord = exif.get('Face 2 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)     
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 2', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 3 Position' in exif:
                       face_coord = exif.get('Face 3 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 3', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 4 Position' in exif:
                       face_coord = exif.get('Face 4 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 4', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 5 Position' in exif:
                       face_coord = exif.get('Face 5 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 5', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 6 Position' in exif:
                       face_coord = exif.get('Face 6 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 6', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 7 Position' in exif:
                       face_coord = exif.get('Face 7 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 7', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                  if 'Face 8 Position' in exif:
                       face_coord = exif.get('Face 8 Position')
                       l = list(face_coord.split())
-                      face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
-                      ax.add_patch(face)
+                      l = list(map(float, l))
+                      #face = patches.Rectangle((l[1],l[0]),l[2],l[3],linewidth=1,edgecolor='r',facecolor='none')
+                      ax.add_patch(patches.Rectangle((l[1],l[0]),l[2],l[3],  linewidth=1,edgecolor='r',facecolor='none'))
                       txt = ax.text(l[1],l[0],'Face 8', color='w', weight='bold', fontsize='small', ha='center', va='center')
                       txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
@@ -1070,7 +1078,7 @@ class draw (object) :
                                    l=l+1
                                    if l in foc :
                                         ax.add_patch(patches.Rectangle((i*(xpixels/11)-r_size/4,ypixels/9*j-r_size/4),r_size/2,r_size/2,linewidth=2,edgecolor = 'lime',facecolor='none',alpha =0.9))
-                                   else: 
+                                   else:
                                         ax.add_patch(patches.Rectangle((i*(xpixels/11)-r_size/4,ypixels/9*j-r_size/4),r_size/2,r_size/2,linewidth=2,edgecolor = 'w',facecolor='none',alpha =0.3))
                               l = l+11
                     elif exif.get('Camera Model Name') in ('ILCE-7RM2')  :
@@ -1099,13 +1107,13 @@ class draw (object) :
 
 
 
-                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6') :
+                    elif exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6','ILCE-6400','MODEL-NAME') :
                          foc = exif.get ('Focal Plane AF Points Used')
                          if int(foc) :
 
                               r_size = exif.get('Focal Plane AF Point Area')
                               r_size = list(r_size.split())
-                                                            
+
 
                               for i in range (1,int(foc)+1) :
                                    afloc = exif.get ('Focal Plane AF Point Location '+str(i))
@@ -1119,26 +1127,28 @@ class draw (object) :
                                    ax.add_patch(afspot)
 
 
-                              
+
                     else :
                          foc=[]
 
 
 
-                    
+
                else :
                     foc=[]
 
           if 'Focus Location' in exif:
             focusp = exif.get('Focus Location')
+            print('Debug ' + focusp)
             focusp = list(focusp.split())
+            focusp = list(map(float, focusp))
             if exif.get('AF Tracking') == 'Face tracking':
-                 focuspoint = patches.Circle((focusp[2],focusp[3]),radius=0.01*xpixels,linewidth=1,edgecolor='lime',facecolor='none')
+                 focuspoint = patches.Circle((focusp[2],focusp[3]),radius=(0.01*xpixels), linewidth=1,edgecolor='lime',facecolor='none')
             else:
-                 focuspoint = patches.Circle((focusp[2],focusp[3]),radius=0.01*xpixels,linewidth=1,edgecolor='y',facecolor='none')
+                 focuspoint = patches.Circle((focusp[2],focusp[3]),radius=(0.01*xpixels), linewidth=1,edgecolor='y',facecolor='none')
             ax.add_patch(focuspoint)
 
-          
+
           if exif.get('AF Type') == '15-point':
                txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'15-point focus model detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nNote: Number next to AF point represents in-focus estimation.\nLess is better (i.e. 0 = in focus; 32768 = out of focus)', color='y', weight='bold', fontsize='small', ha='left', va='top')
                txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
@@ -1147,14 +1157,14 @@ class draw (object) :
                txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
           elif (exif.get ('Focal Plane AF Points Used')) :
-               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2','ILCE-9','ILCE-7RM3','ILCE-7M3') :
+               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2','ILCE-9','ILCE-7RM3','ILCE-7M3','ILCE-6400','MODEL-NAME') :
                     if exif.get('AF Tracking') == 'Face tracking':
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc))+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
                     else:
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6') :
+               if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6','ILCE-6400','MODEL-NAME') :
                     if exif.get('AF Tracking') == 'Face tracking':
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
@@ -1174,9 +1184,9 @@ class draw (object) :
                     txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
           ax.imshow(im)
-          
+
           plt.draw()
-          
+
 
 
 
