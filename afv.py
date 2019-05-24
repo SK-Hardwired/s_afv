@@ -1139,7 +1139,7 @@ class draw (object) :
 
           if 'Focus Location' in exif:
             focusp = exif.get('Focus Location')
-            print('Debug ' + focusp)
+            #print('Debug ' + focusp)
             focusp = list(focusp.split())
             focusp = list(map(float, focusp))
             if exif.get('AF Tracking') == 'Face tracking':
