@@ -32,6 +32,7 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
+  - Eye detection marker (when Eye AF used, no DPAF points data stored in exif, only Eye and Face positions recorded)
   - [ILCA-77M2, ILCA-99M2] Also Dedicated PDAF sensors statuses display
 
 **Reads both JPEG/ARW**
@@ -44,9 +45,9 @@ This tool consists of:
 
 Prerequisities for launching source script:
   - Python 3.7 (code rewritten from Python 2.7 as it will be discontinued)
-  - matplotlib module installed (http://matplotlib.org/).
-  - rawpy (pip install rawpy) to show ARW
-  - pillow (pip install pillow) to load and show JPG
+  - matplotlib module installed (http://matplotlib.org/ *or* pip install matplotlib)
+  - rawpy (pip install rawpy) to read and render Sony RAW - **ARW** files)
+  - pillow (pip install pillow *or* pip install pillow-simd) to load and show JPG
   - Phil Harvey's EXIFTool binary (named exiftool.exe) to be placed in the same folder as afv.py script. Exiftool download (http://www.sno.phy.queensu.ca/~phil/exiftool/)
 
 Warning! You will get no results or corrupted results if you JPEG photos (their EXIF) were modified or by image processing software. So please use JPEGs straight from the camera.
