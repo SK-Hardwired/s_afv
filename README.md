@@ -6,6 +6,7 @@ This tool allows to visualize some statuses of PDAF sensors or CAF stored in EXI
 I.e. this tool show where are focus points.
 
 **Most recent standalone single file (extracts all libs and runtime to temp folder, no python installed required) Win x64 version download link (no exiftool.exe included)**
+
 [Win64 executable download](https://raw.githubusercontent.com/SK-Hardwired/s_afv/s-afv-python-27/dist/afv.exe)
 
 
@@ -27,7 +28,7 @@ With this tool you can see:
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
 
-- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6400, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2, ILCE-9, ILCE-7RM3, ILCE-7M3, DSC-RX100M6, DSC-RX10M4, *DSC-RX100M7* and *ILCE-7RM4*)
+- For Hybrid AF cameras (like ILCE-5100, ILCE-6000, ILCE-6300, ILCE-6400, ILCE-6500, ILCE-7RM2,ILCA-99M2, ILCA-77M2, ILCE-9, ILCE-7RM3, ILCE-7M3, DSC-RX100M6, DSC-RX10M4, **DSC-RX100M7** and **ILCE-7RM4**)
   - If Face Detection was on, and Face(s) detected - they are highlighted with red frame
   - What area was reported as in Focus (Yellow circle). Actually what camera thinks it focused at.
   - What Focal Plane (on-sensor) AF points were used
