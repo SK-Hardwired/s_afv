@@ -7,7 +7,7 @@ I.e. this tool show where are focus points.
 
 **Most recent standalone single file (extracts all libs and runtime to temp folder, no python installed required) Win x64 version download link (no exiftool.exe included)**
 
-[Win64 executable download](https://raw.githubusercontent.com/SK-Hardwired/s_afv/s-afv-python-27/dist/afv.exe)
+**[Win64 executable download](https://raw.githubusercontent.com/SK-Hardwired/s_afv/s-afv-python-27/dist/afv.exe)**
 
 
 
