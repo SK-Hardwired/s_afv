@@ -21,6 +21,7 @@ def norm(val):
      ret = str(ret)
      return ret
 
+
 class draw (object) :
 
      def handle_close(evt):
@@ -52,6 +53,7 @@ class draw (object) :
           flist.sort()
           #flist.sort(key=len)
           pos = flist.index(F)
+
           self.start(F)
 
      def save (self, event):
@@ -105,8 +107,6 @@ class draw (object) :
                plt.axis([0,xpixels,ypixels,0])
                fig.canvas.draw()
                z_status = 0
-
-
 
 
      def start (self,F) :
@@ -1142,11 +1142,15 @@ class draw (object) :
             #print('Debug ' + focusp)
             focusp = list(focusp.split())
             focusp = list(map(float, focusp))
-            if exif.get('AF Tracking') == 'Face tracking':
+            if exif.get('AF Area Mode') == 'Tracking' and exif.get('AF Tracking') == 'Lock On AF' and exif.get('Camera Model Name') in ('ILCE-6400','ILCE-9','ILCE-7RM4','ILCE-RX100M7'):
+                ax.add_patch(patches.Rectangle((focusp[2]-0.02*xpixels,focusp[3]-0.02*xpixels),0.04*xpixels,0.04*xpixels, linewidth=1,edgecolor='lime',facecolor='none'))
+                ax.add_patch(patches.Rectangle((focusp[2]-0.025*xpixels,focusp[3]-0.025*xpixels),0.05*xpixels,0.05*xpixels, linewidth=1,edgecolor='lime',facecolor='none', linestyle='--'))
+            elif exif.get('AF Tracking') == 'Face tracking':
                  focuspoint = patches.Circle((focusp[2],focusp[3]),radius=(0.01*xpixels), linewidth=1,edgecolor='lime',facecolor='none')
+                 ax.add_patch(focuspoint)
             else:
                  focuspoint = patches.Circle((focusp[2],focusp[3]),radius=(0.01*xpixels), linewidth=1,edgecolor='y',facecolor='none')
-            ax.add_patch(focuspoint)
+                 ax.add_patch(focuspoint)
 
 
           if exif.get('AF Type') == '15-point':
@@ -1167,6 +1171,9 @@ class draw (object) :
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6','ILCE-6400', 'DSC-RX0', 'DSC-RX0M2', 'MODEL-NAME', 'DSC-RX100M7', 'ILCE-7RM4') :
+                    if exif.get('AF Area Mode') == 'Tracking' and exif.get('AF Tracking') == 'Lock On AF' and exif.get('Camera Model Name') in ('ILCE-6400','ILCE-9','ILCE-7RM4','ILCE-RX100M7'):
+                        txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'Real time object tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
+                        txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
                     if exif.get('AF Tracking') == 'Face tracking':
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
