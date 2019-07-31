@@ -1162,21 +1162,37 @@ class draw (object) :
 
           elif (exif.get ('Focal Plane AF Points Used')) :
 
-               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2','ILCE-9','ILCE-7RM3','ILCE-7M3','ILCE-6400', 'DSC-RX0', 'DSC-RX0M2', 'MODEL-NAME') :
+               if exif.get('Camera Model Name') in ('ILCE-6000','ILCE-5100','ILCE-7RM2','ILCE-7M2') :
                     if exif.get('AF Tracking') == 'Face tracking':
-                         txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc))+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
-                         txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
+
+                        txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+
+                        'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+
+                        '\nFocal Plane AF points used = '+str(len(foc))+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
+                        txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
                     else:
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(len(foc)), color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
 
                if exif.get('Camera Model Name') in ('ILCE-6300','ILCE-6500','ILCA-99M2','ILCA-77M2','ILCE-9','DSC-RX10M4','DSC-RX100M5','ILCE-7RM3','ILCE-7M3','DSC-RX100M6','ILCE-6400', 'DSC-RX0', 'DSC-RX0M2', 'MODEL-NAME', 'DSC-RX100M7', 'ILCE-7RM4') :
-                    if exif.get('AF Area Mode') == 'Tracking' and exif.get('AF Tracking') == 'Lock On AF' and exif.get('Camera Model Name') in ('ILCE-6400','ILCE-9','ILCE-7RM4','ILCE-RX100M7'):
-                        txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'Real time object tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
+
+                    if exif.get('AF Area Mode') == 'Tracking' and exif.get('AF Tracking') == 'Lock On AF': #and exif.get('Camera Model Name') in ('ILCE-6400','ILCE-9','ILCE-7RM4','ILCE-RX100M7'):
+                        txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'Real time object tracking used', color='y', weight='bold', fontsize='small', ha='left', va='top')
                         txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
-                    if exif.get('AF Tracking') == 'Face tracking':
-                         txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'EYE AF or Face Tracking engaged!', color='y', weight='bold', fontsize='small', ha='left', va='top')
+
+                    if exif.get('AF Area Mode') == 'Animal Eye Tracking': # and exif.get('AF Tracking') == 'Lock On AF' and exif.get('Camera Model Name') in ('ILCE-6400','ILCE-9','ILCE-7RM4','ILCE-RX100M7'):
+                        txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'Animal Eye AF used', color='y', weight='bold', fontsize='small', ha='left', va='top')
+                        txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
+
+
+                    if exif.get('AF Tracking') == 'Face tracking' and exif.get('AF Area Mode') == ('Tracking'):
+                         txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'EYE AF used', color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
+
+                    if exif.get('AF Tracking') == 'Face tracking' and exif.get('AF Area Mode') == ('Face Tracking'):
+                         txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc)+'\n'+'Face Tracking used', color='y', weight='bold', fontsize='small', ha='left', va='top')
+                         txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
+
+
                     else:
                          txt = ax.text(0.01*xpixels,0.01*ypixels,str(os.path.basename(F))+' ('+str(pos+1)+'/'+str(len(flist))+')\n'+'Model with Focal Plane AF Points detected ('+str(exif.get('Camera Model Name'))+'). Focus Mode: '+str(exif.get('Focus Mode'))+'\nFocal Plane AF points used = '+str(foc), color='y', weight='bold', fontsize='small', ha='left', va='top')
                          txt.set_path_effects([path_effects.Stroke(linewidth=2, foreground='black'), path_effects.Normal()])
